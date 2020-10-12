@@ -1,0 +1,12 @@
+<label class="games-search">
+  <input
+    class="games-search__input"
+    type="text"
+    placeholder="Enter search phrase"
+    (change)="handleChange($event.currentTarget.value)"
+  >
+  <button
+    class="games-search__search-btn"
+    (click)="handleChange($event.target.previousElementSibling.value)"
+  >Search</button>
+</label>

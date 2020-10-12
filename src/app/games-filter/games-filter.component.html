@@ -1,0 +1,21 @@
+
+<ul class="games-filter__list">
+  <li
+    *ngFor="let filter of filters"
+    class="games-filter__item"
+  >
+    <label
+      class="games-filter__label"
+      [ngClass]="{
+        'active': active(filter.ID)
+      }"
+    >
+      {{filter.Name}}
+      <input
+        class="games-filter__input"
+        type="checkbox"
+        (change)="handleChangeFilter(filter.ID)"
+      >
+    </label>
+  </li>
+</ul>

@@ -1,0 +1,122 @@
+<section class="games-list">
+  <div class="games-list__filter">
+    <!--  filters component-->
+    <app-games-filter
+      [gamesFilters]="gamesFilters"
+      (filterChanged)="handleChangeFilters($event)"
+    ></app-games-filter>
+  </div>
+  <div class="games-list__container">
+    <h2 hidden>Games list</h2>
+    <!--  info panel-->
+    <span>
+      Filtered games: <strong>{{games().length - favoritesList.length}}/{{gamesList.length}}</strong>
+    </span>
+    <span>
+      Filtered by: <strong>{{mappedFilters()}}</strong>
+    </span>
+    
+    <div class="games-list__search-wrap">
+      <!--  search component-->
+      <app-game-search
+        (search)="handleSearch($event)"
+      ></app-game-search>
+      <!--  toggle search button-->
+      <div>
+        <button (click)="toggleSort()">Toggle sort</button>
+        <!--  games per page select-->
+        <label>
+          Games per page
+          <select id="perPage" (change)="handleChangePerPage($event.currentTarget.value)">
+            <option value="20">20</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  
+    <!--  game list-->
+    <div *ngIf="!searchResult.length">
+      <ul class="games-list__list">
+        <li
+          class="games-list__item"
+          [ngClass]="{
+                'games-list__item--active' : inFavorites(game.ID)
+              }"
+          *ngFor="let game of paginateGames()">
+          <img
+            [src]="game.ImageFullPath"
+            [alt]="game.Name.en + ' photo'"
+            width="280"
+            height="280"
+            class="games-list__img">
+          <a
+            class="games-list__link"
+            uiSref="game" [uiParams]="{ id: game.ID }">
+            {{ game.Name.en }}
+          </a>
+          <button
+            class="games-list__favorites-btn"
+            (click)="toggleFavorites(game)">
+            <svg
+              class="games-list__favorites-icon"
+              width="21"
+              height="21"
+            >
+              <use
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xlink:href="assets/img/svg/sprite.svg#star"
+              ></use>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    
+      <!--  paginate-->
+      <ul class="paginate">
+        <li *ngFor="let page of [].constructor(pages()); let index = index">
+          <button class="paginate__btn" (click)="handleChangePage(index + 1)">{{ index + 1 }}</button>
+        </li>
+      </ul>
+    </div>
+    <!--  search results-->
+  
+    <div *ngIf="searchResult.length">
+      <ul class="games-list__list">
+        <li
+          class="games-list__item"
+          *ngFor="let game of searchResult">
+          <img
+            [src]="game.ImageFullPath"
+            [alt]="game.Name.en + ' photo'"
+            width="280"
+            height="280"
+            class="games-list__img">
+          <a
+            class="games-list__link"
+            uiSref="game" [uiParams]="{ id: game.ID }">
+            {{ game.Name.en }}
+          </a>
+          <button
+            class="games-list__favorites-btn"
+            [ngClass]="{
+                'games-list__favorites-btn--active' : inFavorites(game.ID)
+              }"
+            (click)="toggleFavorites(game)">
+            <svg
+              class="games-list__favorites-icon"
+              width="21"
+              height="21"
+            >
+              <use
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xlink:href="assets/img/svg/sprite.svg#star"
+              ></use>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

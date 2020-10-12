@@ -1,0 +1,18 @@
+<a uiSref="gamesList">Back to games list</a>
+
+<p>game works!</p>
+
+<div>
+  <h3>{{game.Name.en}}</h3>
+  <img
+    [src]="game.ImageFullPath"
+    [alt]="game.Name.en + ' photo'"
+    width="300"
+    height="300"
+    class="game__img">
+  <a
+    [href]="'https://www.rost.bet/en/games/play/' + game.Url + '?demo=true'"
+    target="_blank"
+  >Play Demo</a>
+  
+</div>

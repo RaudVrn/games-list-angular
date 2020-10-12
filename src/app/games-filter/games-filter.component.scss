@@ -1,0 +1,36 @@
+@import "../../assets/scss/mixins";
+
+.games-filters {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding-left: 0;
+  }
+
+  &__item {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__label {
+    display: block;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 15px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: deepskyblue;
+    }
+
+    &.active {
+      background-color: lightskyblue;
+    }
+  }
+
+  &__input {
+    @include visually-hidden();
+  }
+}
